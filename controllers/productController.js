@@ -39,7 +39,6 @@ exports.getProductById = async (req, res) => {
   try {
     const product = await Product.findOne({
       _id: req.params.id,
-      createdBy: req.user._id,
     });
     if (!product)
       return res.status(404).json({ message: "Product not found" });
@@ -80,7 +79,6 @@ exports.deleteProduct = async (req, res) => {
 
     const product = await Product.findOneAndDelete({
       _id: id,
-      createdBy: req.user._id,
     });
 
     if (!product)

@@ -15,7 +15,7 @@ exports.createClient = async (req, res) => {
       address,
       gstin,
       stateName,
-    //   createdBy: req.user._id,
+      //   createdBy: req.user._id,
     });
 
     res.status(201).json({ message: "Client created successfully", client });
@@ -44,7 +44,6 @@ exports.getClientById = async (req, res) => {
   try {
     const client = await Client.findOne({
       _id: req.params.id,
-      createdBy: req.user._id,
     });
     if (!client) return res.status(404).json({ message: "Client not found" });
     res.status(200).json(client);
@@ -60,7 +59,7 @@ exports.updateClient = async (req, res) => {
     const updates = req.body;
 
     const client = await Client.findOneAndUpdate(
-      { _id: id, createdBy: req.user._id },
+      { _id: id },
       updates,
       { new: true }
     );
@@ -78,8 +77,7 @@ exports.deleteClient = async (req, res) => {
     const { id } = req.params;
 
     const client = await Client.findOneAndDelete({
-      _id: id,
-      createdBy: req.user._id,
+      _id: id
     });
 
     if (!client) return res.status(404).json({ message: "Client not found" });
